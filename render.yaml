@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: vardoxstudio
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0 # Or whichever version matches your environment
+      - key: NODE_ENV
+        value: production
+    # By defining the service here, Render locks the configuration in the dashboard,
+    # meaning "no one can change" these settings from the UI without modifying this file.
