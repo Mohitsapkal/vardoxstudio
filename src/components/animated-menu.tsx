@@ -56,6 +56,7 @@ export default function AnimatedMenu() {
           className="relative flex items-center justify-center h-[64px] min-w-[64px] rounded-full shadow-2xl overflow-visible cursor-pointer z-10"
           onHoverStart={() => setIsHovered(true)}
           onHoverEnd={() => setIsHovered(false)}
+          onClick={() => setIsHovered(!isHovered)}
           animate={{
             backgroundColor: isHovered ? "rgba(255, 255, 255, 0.95)" : "#ff7a3d",
             padding: isHovered ? "8px" : "0px",
