@@ -115,7 +115,6 @@ const FaqSection = () => {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="font-black text-4xl sm:text-5xl md:text-6xl text-white leading-tight uppercase"
-                style={{ fontFamily: "'Impact', sans-serif" }}
               >
                 Your Questions Answered
               </motion.h2>

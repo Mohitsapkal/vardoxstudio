@@ -194,7 +194,7 @@ const Hero = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-center sm:items-stretch sm:justify-end animate-fade-in-down" style={{ animationDelay: "0.9s" }}>
-            <StatCard value={45} suffix="+" description="Happy Clients" bgColor="bg-[#f4f157]" textColor="text-red-600" />
+            <StatCard value={49} suffix="+" description="Happy Clients" bgColor="bg-[#f4f157]" textColor="text-red-600" />
           </div>
         </div>
         <p className="text-xs sm:text-sm text-gray-400 max-w-sm mt-4 sm:mt-6 hidden md:block md:ml-auto md:text-right animate-fade-in-down" style={{ animationDelay: "1s" }}>

@@ -61,7 +61,6 @@ export default function WhyChooseUs() {
             <motion.h2 
               variants={fadeUpVariant}
               className="font-black text-4xl sm:text-5xl md:text-7xl leading-[1.05] tracking-tight uppercase text-gray-900"
-              style={{ fontFamily: "'Impact', sans-serif" }}
             >
               Why We're Your Next{' '}
               <motion.span

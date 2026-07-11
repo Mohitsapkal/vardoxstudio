@@ -175,7 +175,6 @@ const ServiceBlock = ({ item, index }: { item: typeof services[0], index: number
         <motion.h3 
           variants={textRevealVariant}
           className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tighter leading-[1.1] uppercase"
-          style={{ fontFamily: "'Impact', sans-serif" }}
         >
           {item.title}
         </motion.h3>
@@ -238,7 +237,6 @@ export default function Services() {
           <motion.h2
             variants={fadeUpVariant}
             className="font-black text-[42px] sm:text-[56px] md:text-[80px] leading-[1.05] tracking-tight uppercase max-w-4xl"
-            style={{ fontFamily: "'Impact', sans-serif" }}
           >
             Our Creative{' '}
             <motion.span
