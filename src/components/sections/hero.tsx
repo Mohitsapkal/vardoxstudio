@@ -187,7 +187,7 @@ const Hero = () => {
       
       <div className="container mx-auto px-5 lg:px-20 mt-16 sm:mt-20 md:mt-24 lg:mt-32 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 items-end">
-          <div className="relative h-32 sm:h-40 md:h-48 hidden md:block animate-fade-in-down" style={{ animationDelay: "0.8s" }}>
+          <div className="relative h-32 sm:h-40 md:h-48 block animate-fade-in-down" style={{ animationDelay: "0.8s" }}>
             <div className="absolute px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-md bg-[#ff8c42] rotate-[-10deg] top-[50%] left-[15%] animate-float">Creativity</div>
             <div className="absolute px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-md bg-[#9b7fff] rotate-[-10deg] top-[25%] left-[5%] animate-float-delayed">Quality</div>
             <div className="absolute px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-md bg-[#f4f157] text-black rotate-[10deg] top-[55%] left-[45%] animate-bounce-slow">Results</div>
@@ -197,7 +197,7 @@ const Hero = () => {
             <StatCard value={49} suffix="+" description="Happy Clients" bgColor="bg-[#f4f157]" textColor="text-red-600" />
           </div>
         </div>
-        <p className="text-xs sm:text-sm text-gray-400 max-w-sm mt-4 sm:mt-6 hidden md:block md:ml-auto md:text-right animate-fade-in-down" style={{ animationDelay: "1s" }}>
+        <p className="text-xs sm:text-sm text-gray-400 max-w-sm mt-4 sm:mt-6 block mx-auto text-center md:ml-auto md:text-right animate-fade-in-down" style={{ animationDelay: "1s" }}>
           Helping brands thrive with strategic video content, creative storytelling, and results-focused marketing.
         </p>
       </div>

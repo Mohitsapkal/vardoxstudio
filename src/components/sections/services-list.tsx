@@ -129,9 +129,9 @@ export default function ServicesList() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon & Image Side */}
-                <div className="flex-1">
-                  <div className="relative group">
-                    <div className={`relative overflow-hidden rounded-[40px] p-12 lg:p-16 transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl flex items-center justify-center min-h-[300px] ${!service.image ? service.bgColor : ''}`}>
+                <div className="flex-1 w-full">
+                  <div className="relative group w-full">
+                    <div className={`relative w-full overflow-hidden rounded-[40px] p-12 lg:p-16 transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl flex items-center justify-center min-h-[300px] ${!service.image ? service.bgColor : ''}`}>
                       {/* Background Image */}
                       {service.image && (
                         <div 
