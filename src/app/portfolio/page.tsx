@@ -2,6 +2,7 @@ import Header from "@/components/sections/header";
 import Footer from "@/components/sections/footer";
 import PortfolioHero from "@/components/sections/portfolio-hero";
 import PortfolioGallery from "@/components/sections/portfolio-gallery";
+import ToolsStrip from "@/components/ui/tools-strip";
 
 export default function PortfolioPage() {
   return (
@@ -9,6 +10,7 @@ export default function PortfolioPage() {
       <Header />
       <main>
         <PortfolioHero />
+        <ToolsStrip />
         <PortfolioGallery />
       </main>
       <Footer />

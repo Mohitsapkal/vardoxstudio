@@ -1,145 +1,154 @@
 "use client";
 
 import { useState } from "react";
-import { Play, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import AnimatedFolder, { ProjectData, Video } from "@/components/ui/animated-folder";
+import { X, Play, Pause, ArrowRight } from "lucide-react";
 
 export default function PortfolioGallery() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [openFolderId, setOpenFolderId] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const closeModal = () => { setSelectedVideo(null); setIsPlaying(false); };
 
   const filters = ["All", "Video Ads", "Social Media", "Branding", "Corporate Films", "Event"];
 
-  const projects = [
+  const folderColors = [
+    { back: "bg-[#4a00e0]", front: "from-[#8e2de2] to-[#4a00e0]", glow: "#8e2de2" },
+    { back: "bg-[#0052d4]", front: "from-[#4facfe] to-[#00f2fe]", glow: "#4facfe" },
+    { back: "bg-[#ff416c]", front: "from-[#ff4b2b] to-[#ff416c]", glow: "#ff4b2b" },
+    { back: "bg-[#11998e]", front: "from-[#38ef7d] to-[#11998e]", glow: "#38ef7d" },
+    { back: "bg-[#f12711]", front: "from-[#f5af19] to-[#f12711]", glow: "#f5af19" },
+    { back: "bg-[#834d9b]", front: "from-[#d04ed6] to-[#834d9b]", glow: "#d04ed6" },
+  ];
+
+  const projects: ProjectData[] = [
     {
+      id: "1",
       title: "Brand Boost Initiative",
       category: "Video Ads",
-      client: "Sustainability Firm",
-      image: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=800&h=600&fit=crop",
-      description: "Drive lead generation through compelling video storytelling",
-      results: "350% increase in qualified leads",
-      tags: ["Video Production", "Lead Generation"]
+      result: "350% more leads",
+      description: "A full-funnel video advertising campaign designed to capture attention and convert viewers into loyal customers. We crafted cinematic brand stories that resonated deeply with the target audience.",
+      tags: ["Video Production", "Lead Generation"],
+      videos: [
+        { thumbnail: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop" }
+      ]
     },
     {
-      title: "EcomPro SEO Campaign",
+      id: "2",
+      title: "E-Commerce Pro SEO Campaign",
       category: "Social Media",
-      client: "E-commerce Brand",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-      description: "Social media optimization and engagement campaign",
-      results: "500K+ organic reach in 3 months",
-      tags: ["Social Media", "SEO"]
+      result: "500K+ reach",
+      description: "A viral social media strategy combining short-form reels, trending audio, and precision-targeted paid posts that exploded the brand's online presence across Instagram and YouTube.",
+      tags: ["Social Media", "SEO"],
+      videos: [
+        { thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop" }
+      ]
     },
     {
+      id: "3",
       title: "LuxuryLaunch Campaign",
       category: "Branding",
-      client: "Luxury Fashion Brand",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
-      description: "Complete brand identity and launch campaign",
-      results: "20K+ pre-launch signups",
-      tags: ["Branding", "Launch"]
+      result: "20K+ sign-ups",
+      description: "A premium brand identity overhaul featuring bespoke logo design, brand guidelines, packaging, and a high-end launch campaign that positioned the client as a market leader.",
+      tags: ["Branding", "Launch"],
+      videos: [
+        { thumbnail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&h=600&fit=crop" }
+      ]
     },
     {
+      id: "4",
       title: "TechStart Explainer",
       category: "Corporate Films",
-      client: "Tech Startup",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop",
-      description: "Animated explainer video for SaaS product",
-      results: "40% conversion rate increase",
-      tags: ["Animation", "Corporate"]
+      result: "40% conversion boost",
+      description: "A crisp, animated explainer film that simplified a complex SaaS product into a compelling narrative. The result: dramatically higher demo bookings and investor interest.",
+      tags: ["Animation", "Corporate"],
+      videos: [
+        { thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop" }
+      ]
     },
     {
+      id: "5",
       title: "FitLife Social Series",
       category: "Social Media",
-      client: "Fitness Brand",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=600&fit=crop",
-      description: "Instagram and YouTube content series",
-      results: "2M+ views across platforms",
-      tags: ["Social Media", "Content Series"]
+      result: "2M+ views",
+      description: "A 12-part content series built around fitness transformation stories. Each episode was shot, edited, and distributed across platforms — accumulating millions of organic views.",
+      tags: ["Content Series", "Fitness"],
+      videos: [
+        { thumbnail: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop" }
+      ]
     },
     {
+      id: "6",
       title: "Property Showcase",
       category: "Video Ads",
-      client: "Real Estate Developer",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
-      description: "Premium property video tours and ads",
-      results: "85% faster sales cycle",
-      tags: ["Real Estate", "Video Ads"]
-    },
-    {
-      title: "Restaurant Rebrand",
-      category: "Branding",
-      client: "Fine Dining Restaurant",
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop",
-      description: "Complete visual identity refresh",
-      results: "60% increase in reservations",
-      tags: ["Branding", "Hospitality"]
-    },
-    {
-      title: "Product Launch Video",
-      category: "Corporate Films",
-      client: "Consumer Electronics",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop",
-      description: "High-impact product reveal video",
-      results: "1M+ views in first week",
-      tags: ["Product Launch", "Corporate"]
-    },
-    {
-      title: "Fashion Week Coverage",
-      category: "Social Media",
-      client: "Fashion Magazine",
-      image: "https://images.unsplash.com/photo-1558769132-cb1aea1f1d23?w=800&h=600&fit=crop",
-      description: "Behind-the-scenes social content",
-      results: "800K+ engagement rate",
-      tags: ["Fashion", "Event Coverage"]
-    },
-    {
-      title: "Annual Tech Summit",
-      category: "Event",
-      client: "Global Tech Inc",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
-      description: "Comprehensive event coverage and highlight reel",
-      results: "10K+ attendees engaged",
-      tags: ["Event Coverage", "Live Production"]
-    },
-    {
-      title: "Music Festival Mainstage",
-      category: "Event",
-      client: "SoundWave Productions",
-      image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&h=600&fit=crop",
-      description: "Multi-camera live concert recording and aftermovie",
-      results: "50K+ live stream viewers",
-      tags: ["Live Music", "Multi-cam"]
-    },
-    {
-      title: "Corporate Retreat Gala",
-      category: "Event",
-      client: "Finance Partners LLC",
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop",
-      description: "Elegant evening gala documentation and interviews",
-      results: "Award-winning internal video",
-      tags: ["Corporate", "Gala"]
+      result: "85% faster sales",
+      description: "Cinematic drone and walkthrough video production for a luxury real estate developer. Properties sold significantly faster after featuring our immersive visual storytelling.",
+      tags: ["Real Estate", "Drone"],
+      videos: [
+        { thumbnail: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop" },
+        { thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop" }
+      ]
     }
   ];
 
-  const filteredProjects = activeFilter === "All" 
-    ? projects 
+  const filteredProjects = activeFilter === "All"
+    ? projects
     : projects.filter(project => project.category === activeFilter);
 
   return (
-    <section className="relative py-24 bg-white overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff7a3d]/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#9d7eff]/5 rounded-full blur-3xl"></div>
-      
-      <div className="container mx-auto px-6 lg:px-20 relative z-10">
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16 animate-fade-in-up">
+    <section
+      id="portfolio-grid"
+      className="relative pt-10 pb-24 bg-[#0a0e1a] overflow-hidden min-h-screen"
+      onClick={() => setOpenFolderId(null)}
+    >
+      {/* Decorative background glows */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff6b35]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#9d7eff]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#4a00e0]/3 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
+
+        {/* Section heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10 sm:mb-16"
+        >
+          <span className="inline-block text-[#ff6b35] text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4">Our Work</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3 sm:mb-4 leading-tight">
+            Projects That <span className="bg-gradient-to-r from-[#ff6b35] to-[#9d7eff] bg-clip-text text-transparent">Delivered</span>
+          </h2>
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
+            Every folder holds a story — hover to explore the work that moved the needle.
+          </p>
+        </motion.div>
+
+        {/* Filter Tabs — horizontally scrollable on mobile */}
+        <div className="flex gap-2 sm:gap-3 mb-12 sm:mb-20 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap sm:justify-center scrollbar-hide">
           {filters.map((filter) => (
             <button
               key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 ${
+              onClick={(e) => { e.stopPropagation(); setActiveFilter(filter); }}
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 flex-shrink-0 ${
                 activeFilter === filter
-                  ? "bg-[#ff7a3d] text-white shadow-lg scale-105"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  ? "bg-[#ff6b35] text-white shadow-[0_0_15px_rgba(255,107,53,0.4)]"
+                  : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white"
               }`}
             >
               {filter}
@@ -147,94 +156,164 @@ export default function PortfolioGallery() {
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={index}
-              className="group animate-fade-in-up hover:scale-105 transition-all duration-500"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="relative overflow-hidden rounded-[32px] bg-[#0A1828] shadow-xl">
-                {/* Image */}
-                <div className="relative h-[320px] overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1828] via-[#0A1828]/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+        {/* Zigzag Layout */}
+        <AnimatePresence mode="popLayout">
+          <div className="flex flex-col gap-14 sm:gap-20 lg:gap-24">
+            {filteredProjects.map((project, index) => {
+              const isEven = index % 2 === 0;
+              const color = folderColors[index % folderColors.length];
 
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-16 h-16 bg-[#ff7a3d] rounded-full flex items-center justify-center animate-pulse-slow">
-                      <Play size={28} className="text-white ml-1" fill="white" />
+              return (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.6, delay: 0.05 }}
+                  className={`flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20 ${
+                    isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+                  }`}
+                >
+                  {/* Folder side */}
+                  <div className="w-full lg:w-1/2 flex justify-center">
+                    <div className="w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]">
+                      <AnimatedFolder
+                        project={project}
+                        color={color}
+                        onVideoClick={(video) => setSelectedVideo(video)}
+                        isOpen={openFolderId === project.id}
+                        onOpen={() => setOpenFolderId(project.id)}
+                        onClose={() => setOpenFolderId(null)}
+                      />
                     </div>
                   </div>
 
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-[#ff7a3d] text-white text-xs font-bold rounded-full">
+                  {/* Text side */}
+                  <motion.div
+                    className={`w-full lg:w-1/2 ${isEven ? "lg:text-left" : "lg:text-left"}`}
+                    initial={{ opacity: 0, x: isEven ? 40 : -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6, delay: 0.15 }}
+                  >
+                    {/* Category badge */}
+                    <span
+                      className="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4"
+                      style={{
+                        background: "rgba(157,126,255,0.12)",
+                        color: "#9d7eff",
+                        border: "1px solid rgba(157,126,255,0.25)"
+                      }}
+                    >
                       {project.category}
                     </span>
-                  </div>
 
-                  {/* External Link */}
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
-                      <ExternalLink size={18} className="text-white" />
+                    {/* Title */}
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-3 sm:mb-4">
+                      {project.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
+                      {project.description}
+                    </p>
+
+                    {/* Result pill */}
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="flex items-center gap-2 bg-[#ff6b35]/10 border border-[#ff6b35]/25 rounded-full px-4 py-2">
+                        <span className="w-2 h-2 rounded-full bg-[#ff6b35] animate-pulse" />
+                        <span className="text-[#ff6b35] text-sm font-bold">{project.result}</span>
+                      </div>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs text-gray-400 bg-white/5 border border-white/10 px-3 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* CTA */}
+                    <button className="group flex items-center gap-2 text-white font-semibold text-sm hover:text-[#ff6b35] transition-colors duration-300">
+                      <span>Hover folder to explore</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </AnimatePresence>
+      </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#ff7a3d] transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="text-[#ff7a3d] font-semibold text-sm mb-3">
-                    {project.client}
-                  </p>
-                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Results */}
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-3 mb-4">
-                    <p className="text-xs text-gray-500 mb-1">Results</p>
-                    <p className="text-sm font-bold text-[#3dd9a8]">{project.results}</p>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-white/5 text-gray-400 text-xs font-medium rounded-full"
-                      >
-                        {tag}
-                      </span>
+      {/* Video Modal/Lightbox */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+            onClick={closeModal}
+          >
+            <motion.button
+              className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+              onClick={closeModal}
+            >
+              <X size={24} />
+            </motion.button>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={selectedVideo.thumbnail}
+                alt="Video Preview"
+                className={`w-full h-full object-cover transition-opacity duration-500 ${isPlaying ? "opacity-20" : "opacity-50"}`}
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                {/* Playing indicator */}
+                {isPlaying && (
+                  <div className="flex gap-1 mb-6">
+                    {[0, 1, 2, 3].map((i) => (
+                      <motion.div
+                        key={i}
+                        className="w-1 bg-[#ff6b35] rounded-full"
+                        animate={{ height: [8, 28, 8] }}
+                        transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
+                      />
                     ))}
                   </div>
-                </div>
+                )}
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-20 h-20 bg-[#ff6b35] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,107,53,0.5)] transition-colors hover:bg-[#ff8555]"
+                  onClick={(e) => { e.stopPropagation(); setIsPlaying((p) => !p); }}
+                >
+                  {isPlaying
+                    ? <Pause size={32} className="text-white" fill="white" />
+                    : <Play size={32} className="text-white ml-1" fill="white" />}
+                </motion.button>
+                <p className="text-white/70 mt-5 text-sm font-medium tracking-wide">
+                  {isPlaying ? "Playing demo…" : "Click to play"}
+                </p>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Load More / CTA */}
-        <div className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
-          <p className="text-gray-600 mb-6 text-lg">
-            Like what you see? Let's create something amazing together.
-          </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-[#ff7a3d] text-white font-semibold rounded-full hover:bg-[#ff8c42] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_30px_rgba(255,122,61,0.3)]"
-          >
-            Start Your Project
-          </a>
-        </div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
