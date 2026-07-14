@@ -131,11 +131,24 @@ export default function PortfolioGallery() {
           className="text-center mb-10 sm:mb-16"
         >
           <span className="inline-block text-[#ff6b35] text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4">Our Work</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3 sm:mb-4 leading-tight">
-            Projects That <span className="bg-gradient-to-r from-[#ff6b35] to-[#9d7eff] bg-clip-text text-transparent">Delivered</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight">
+            Projects That{" "}
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-[#ff6b35] to-[#9d7eff] bg-clip-text text-transparent">
+                Delivered
+              </span>
+              {/* Animated underline */}
+              <motion.span
+                className="absolute -bottom-1 left-0 h-[3px] rounded-full bg-gradient-to-r from-[#ff6b35] to-[#9d7eff]"
+                initial={{ width: "0%" }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              />
+            </span>
           </h2>
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
-            Every folder holds a story — hover to explore the work that moved the needle.
+          <p className="text-gray-400 text-sm sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
+            Every folder holds a story — tap to explore the work that moved the needle.
           </p>
         </motion.div>
 
@@ -172,9 +185,12 @@ export default function PortfolioGallery() {
                   viewport={{ once: true, margin: "-60px" }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, delay: 0.05 }}
-                  className={`flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20 ${
-                    isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-                  }`}
+                  className={`flex items-center gap-8 sm:gap-12 lg:gap-20
+                    ${isEven
+                      ? "flex-col lg:flex-row"
+                      : "flex-col-reverse lg:flex-row-reverse"
+                    }
+                  `}
                 >
                   {/* Folder side */}
                   <div className="w-full lg:w-1/2 flex justify-center">
@@ -242,7 +258,7 @@ export default function PortfolioGallery() {
 
                     {/* CTA */}
                     <button className="group flex items-center gap-2 text-white font-semibold text-sm hover:text-[#ff6b35] transition-colors duration-300">
-                      <span>Hover folder to explore</span>
+                      <span>Tap folder to explore</span>
                       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
                   </motion.div>

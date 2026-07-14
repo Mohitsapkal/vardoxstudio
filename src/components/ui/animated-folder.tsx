@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, Video as VideoIcon, Smartphone, PenTool, Film, CalendarDays, Folder } from "lucide-react";
 
@@ -44,6 +44,29 @@ export default function AnimatedFolder({
   onClose,
 }: AnimatedFolderProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const isTouchDevice = useRef(false);
+
+  // Detect touch on first interaction
+  const handleTouchStart = useCallback(() => {
+    isTouchDevice.current = true;
+  }, []);
+
+  // Toggle for touch devices (tap = open, tap again = close)
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (isTouchDevice.current) {
+      e.stopPropagation();
+      isOpen ? onClose() : onOpen();
+    }
+  }, [isOpen, onOpen, onClose]);
+
+  // Hover only for non-touch (mouse) devices
+  const handleMouseEnter = useCallback(() => {
+    if (!isTouchDevice.current) { setIsHovered(true); onOpen(); }
+  }, [onOpen]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!isTouchDevice.current) { setIsHovered(false); onClose(); }
+  }, [onClose]);
   const displayVideos = project.videos.slice(0, 3);
 
   const CategoryIcon = () => {
@@ -66,9 +89,11 @@ export default function AnimatedFolder({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.85 }}
       transition={{ duration: 0.5 }}
-      className="relative w-full max-w-[320px] mx-auto flex flex-col items-center"
-      onMouseEnter={() => { setIsHovered(true); onOpen(); }}
-      onMouseLeave={() => { setIsHovered(false); onClose(); }}
+      className="relative w-full max-w-[320px] mx-auto flex flex-col items-center cursor-pointer"
+      onTouchStart={handleTouchStart}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* ── Glow halo when open ── */}
       <AnimatePresence>
