@@ -207,7 +207,7 @@ export default function PortfolioGallery() {
                   viewport={{ once: true, margin: "-60px" }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, delay: 0.05 }}
-                  className={`flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20 ${
+                  className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-20 ${
                     isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                   }`}
                 >
@@ -227,9 +227,9 @@ export default function PortfolioGallery() {
 
                   {/* Text side */}
                   <motion.div
-                    className={`w-full lg:w-1/2 ${isEven ? "lg:text-left" : "lg:text-left"}`}
-                    initial={{ opacity: 0, x: isEven ? 40 : -40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    className="w-full lg:w-1/2 text-center lg:text-left"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.6, delay: 0.15 }}
                   >
@@ -256,7 +256,7 @@ export default function PortfolioGallery() {
                     </p>
 
                     {/* Result pill */}
-                    <div className="flex items-center gap-3 mb-6">
+                    <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
                       <div className="flex items-center gap-2 bg-[#ff6b35]/10 border border-[#ff6b35]/25 rounded-full px-4 py-2">
                         <span className="w-2 h-2 rounded-full bg-[#ff6b35] animate-pulse" />
                         <span className="text-[#ff6b35] text-sm font-bold">{project.result}</span>
@@ -264,7 +264,7 @@ export default function PortfolioGallery() {
                     </div>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-8">
+                    <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
@@ -276,7 +276,7 @@ export default function PortfolioGallery() {
                     </div>
 
                     {/* CTA */}
-                    <button className="group flex items-center gap-2 text-white font-semibold text-sm hover:text-[#ff6b35] transition-colors duration-300">
+                    <button className="group flex items-center justify-center lg:justify-start gap-2 text-white font-semibold text-sm hover:text-[#ff6b35] transition-colors duration-300">
                       <span>Hover folder to explore</span>
                       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
