@@ -130,27 +130,49 @@ export default function PortfolioGallery() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 sm:mb-16"
         >
-          <span className="inline-block text-[#ff6b35] text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4">Our Work</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight">
+          <span className="inline-block text-[#ff6b35] text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mb-4">
+            Our Work
+          </span>
+
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-5 leading-[1.05] tracking-tight">
             Projects That{" "}
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-[#ff6b35] to-[#9d7eff] bg-clip-text text-transparent">
                 Delivered
               </span>
               {/* Animated underline */}
-              <motion.span
-                className="absolute -bottom-1 left-0 h-[3px] rounded-full bg-gradient-to-r from-[#ff6b35] to-[#9d7eff]"
-                initial={{ width: "0%" }}
-                whileInView={{ width: "100%" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              />
+              <motion.svg
+                viewBox="0 0 300 14"
+                className="absolute -bottom-2 left-0 w-full overflow-visible"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <motion.path
+                  d="M2 10 C 60 2, 130 14, 200 6 S 270 2, 298 8"
+                  fill="none"
+                  stroke="url(#uline-grad)"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.1, delay: 0.4, ease: "easeOut" }}
+                />
+                <defs>
+                  <linearGradient id="uline-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#ff6b35" />
+                    <stop offset="100%" stopColor="#9d7eff" />
+                  </linearGradient>
+                </defs>
+              </motion.svg>
             </span>
           </h2>
-          <p className="text-gray-400 text-sm sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
-            Every folder holds a story — tap to explore the work that moved the needle.
+
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0">
+            Every folder holds a story — hover to explore the work that moved the needle.
           </p>
         </motion.div>
+
 
         {/* Filter Tabs — horizontally scrollable on mobile */}
         <div className="flex gap-2 sm:gap-3 mb-12 sm:mb-20 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap sm:justify-center scrollbar-hide">
@@ -185,12 +207,9 @@ export default function PortfolioGallery() {
                   viewport={{ once: true, margin: "-60px" }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, delay: 0.05 }}
-                  className={`flex items-center gap-8 sm:gap-12 lg:gap-20
-                    ${isEven
-                      ? "flex-col lg:flex-row"
-                      : "flex-col-reverse lg:flex-row-reverse"
-                    }
-                  `}
+                  className={`flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20 ${
+                    isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+                  }`}
                 >
                   {/* Folder side */}
                   <div className="w-full lg:w-1/2 flex justify-center">
@@ -258,7 +277,7 @@ export default function PortfolioGallery() {
 
                     {/* CTA */}
                     <button className="group flex items-center gap-2 text-white font-semibold text-sm hover:text-[#ff6b35] transition-colors duration-300">
-                      <span>Tap folder to explore</span>
+                      <span>Hover folder to explore</span>
                       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
                   </motion.div>
