@@ -1,0 +1,17 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Vardox",
+    "VARDOX",
+    "vardox",
+    "supabase",
+    "slelguoygbfzlpylpxfs"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "dist/**"
+  ]
+}
