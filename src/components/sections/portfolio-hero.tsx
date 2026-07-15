@@ -159,7 +159,7 @@ function TickerCol({ images, direction = "up", speed = 30 }: TickerColProps) {
     : ["-33.33%", "0%"];
 
   return (
-    <div className="overflow-hidden relative flex-1" style={{ height: "420px" }}>
+    <div className="overflow-hidden relative flex-1" style={{ height: "clamp(260px, 55vw, 420px)" }}>
       <motion.div
         className="flex flex-col gap-3 w-full"
         animate={{ y: animate_y }}
@@ -215,7 +215,7 @@ export default function PortfolioHero() {
         {floatingElements.map((item, i) => (
           <motion.div
             key={i}
-            className={`absolute hidden lg:block pointer-events-none z-10 ${item.style}`}
+            className={`absolute pointer-events-none z-10 ${item.style}`}
             animate={item.animate}
             transition={{
               duration: item.duration,
@@ -332,13 +332,15 @@ export default function PortfolioHero() {
           </motion.p>
         </div>
 
-        {/* Five vertical scrolling columns */}
-        <div className="flex gap-3 px-3">
+        {/* Vertical scrolling columns — 3 on mobile, 5 on sm+ */}
+        <div className="flex gap-2 sm:gap-3 px-2 sm:px-3">
           <TickerCol images={ROW1.slice(0, 5)} direction="up"   speed={28} />
           <TickerCol images={ROW2.slice(0, 5)} direction="down" speed={22} />
           <TickerCol images={ROW3.slice(0, 5)} direction="up"   speed={32} />
-          <TickerCol images={ROW1.slice(3, 8)} direction="down" speed={25} />
-          <TickerCol images={ROW2.slice(3, 8)} direction="up"   speed={20} />
+          <div className="hidden sm:contents">
+            <TickerCol images={ROW1.slice(3, 8)} direction="down" speed={25} />
+            <TickerCol images={ROW2.slice(3, 8)} direction="up"   speed={20} />
+          </div>
         </div>
       </div>
 
