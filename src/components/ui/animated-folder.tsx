@@ -110,6 +110,7 @@ export default function AnimatedFolder({
             style={{
               background: `radial-gradient(ellipse at 50% 60%, ${color.glow ?? "#4a00e0"}55 0%, transparent 70%)`,
               filter: "blur(24px)",
+              willChange: "transform, opacity",
             }}
           />
         )}
@@ -128,7 +129,7 @@ export default function AnimatedFolder({
         {/* ── 3D scene root ── */}
         <motion.div
           className="relative w-full"
-          style={{ perspective: "900px" }}
+          style={{ perspective: "900px", willChange: "transform" }}
           animate={
             isOpen
               ? { rotateX: 8, rotateY: -14, scale: 1.06 }
@@ -141,7 +142,7 @@ export default function AnimatedFolder({
           {/* preserve-3d inner */}
           <div
             className="relative w-full aspect-[4/3] cursor-pointer"
-            style={{ transformStyle: "preserve-3d" }}
+            style={{ transformStyle: "preserve-3d", willChange: "transform" }}
           >
 
             {/* ── Folder Back body ── */}
@@ -167,7 +168,7 @@ export default function AnimatedFolder({
                   className={`absolute left-1/2 bottom-6 w-[68%] aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/15 ${
                     isOpen ? "pointer-events-auto cursor-pointer" : "pointer-events-none"
                   }`}
-                  style={{ transformStyle: "preserve-3d", transformOrigin: "center bottom" }}
+                  style={{ transformStyle: "preserve-3d", transformOrigin: "center bottom", willChange: "transform, opacity" }}
                   initial={false}
                   animate={
                     isOpen
@@ -217,18 +218,16 @@ export default function AnimatedFolder({
 
             {/* ── Folder Front Flap (hinge at bottom) ── */}
             <motion.div
-              className={`absolute inset-0 bg-gradient-to-br ${color.front} rounded-xl border border-white/15 flex items-center justify-center overflow-hidden`}
+              className={`absolute inset-0 bg-gradient-to-br ${color.front} rounded-xl border border-white/15 flex items-center justify-center overflow-hidden shadow-[0_-10px_20px_rgba(0,0,0,0.3)]`}
               style={{
                 transformOrigin: "bottom center",
                 transformStyle: "preserve-3d",
                 backfaceVisibility: "hidden",
+                willChange: "transform",
                 zIndex: 15,
               }}
               animate={{
                 rotateX: isOpen ? -112 : isHovered ? -16 : 0,
-                boxShadow: isOpen
-                  ? "0 40px 80px rgba(0,0,0,0.6)"
-                  : "0 -10px 20px rgba(0,0,0,0.3)",
               }}
               transition={{ type: "spring", stiffness: 70, damping: 16, mass: 1.2 }}
             >
