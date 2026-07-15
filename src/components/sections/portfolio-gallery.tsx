@@ -112,13 +112,18 @@ export default function PortfolioGallery() {
   return (
     <section
       id="portfolio-grid"
-      className="relative pt-10 pb-24 bg-[#0a0e1a] overflow-hidden min-h-screen"
+      className="relative pt-10 pb-24 overflow-hidden min-h-screen"
+      style={{
+        background: "linear-gradient(to right, #1a0000 0%, #2d0505 30%, #050a2d 70%, #000d1a 100%)"
+      }}
       onClick={() => setOpenFolderId(null)}
     >
       {/* Decorative background glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff6b35]/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#9d7eff]/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#4a00e0]/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-red-700/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-700/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-red-600/15 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ background: "linear-gradient(to right, rgba(180,0,0,0.08) 0%, transparent 45%, transparent 55%, rgba(0,60,180,0.08) 100%)" }} />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
 
