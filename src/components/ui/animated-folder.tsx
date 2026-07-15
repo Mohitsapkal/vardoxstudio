@@ -26,6 +26,7 @@ interface AnimatedFolderProps {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  onViewAllClick?: () => void;
 }
 
 // 3D thumbnail spread configs when folder is open
@@ -42,6 +43,7 @@ export default function AnimatedFolder({
   isOpen,
   onOpen,
   onClose,
+  onViewAllClick,
 }: AnimatedFolderProps) {
   const [isHovered, setIsHovered] = useState(false);
   const isTouchDevice = useRef(false);
@@ -270,6 +272,23 @@ export default function AnimatedFolder({
               onClick={(e) => { e.stopPropagation(); onClose(); }}
             >
               <X size={16} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* ── View All button ── */}
+        <AnimatePresence>
+          {isOpen && onViewAllClick && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0, y: 10 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+              className="absolute -bottom-16 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-white/10 hover:bg-[#ff6b35] backdrop-blur-md rounded-full flex items-center gap-2 text-white text-sm font-semibold z-50 shadow-lg border border-white/20 whitespace-nowrap transition-colors duration-300"
+              onClick={(e) => { e.stopPropagation(); onViewAllClick(); }}
+            >
+              <span>View all videos</span>
+              <Play size={14} className="text-white" fill="white" />
             </motion.button>
           )}
         </AnimatePresence>
