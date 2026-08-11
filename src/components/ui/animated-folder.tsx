@@ -35,11 +35,11 @@ const SPREAD = [
   { x: 110,  y: -90,  z: 20,  rotateZ: 18,  rotateY: -15},
 ];
 
-function getEmbedUrl(url?: string) {
+function getYouTubeThumbnail(url?: string) {
   if (!url) return "";
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
-  return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}?controls=0&rel=0&modestbranding=1&playsinline=1` : url;
+  return (match && match[2].length === 11) ? `https://img.youtube.com/vi/${match[2]}/hqdefault.jpg` : "";
 }
 
 export default function AnimatedFolder({
@@ -205,11 +205,10 @@ export default function AnimatedFolder({
                   }}
                   whileHover={isOpen ? { scale: 1.52, zIndex: 40, rotateY: 0, rotateZ: 0 } : {}}
                 >
-                  <iframe
-                    src={getEmbedUrl(video.videoUrl)}
+                  <img
+                    src={getYouTubeThumbnail(video.videoUrl)}
+                    alt=""
                     className="w-full h-full object-cover pointer-events-none"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
                   />
                   {/* Play overlay */}
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">

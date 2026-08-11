@@ -33,7 +33,7 @@ export default function PortfolioGallery() {
   const projects: ProjectData[] = [
     {
       id: "1",
-      title: "Brand Boost Initiative",
+      title: "Premium Residency",
       category: "Video Ads",
       result: "350% more leads",
       description: "A full-funnel video advertising campaign designed to capture attention and convert viewers into loyal customers. We crafted cinematic brand stories that resonated deeply with the target audience.",
