@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, Video as VideoIcon, Smartphone, PenTool, Film, CalendarDays, Folder } from "lucide-react";
 
 export interface Video {
-  thumbnail: string;
-  videoUrl?: string;
+  videoUrl: string;
 }
 
 export interface ProjectData {
@@ -35,6 +34,13 @@ const SPREAD = [
   { x: 0,    y: -130, z: 60,  rotateZ: 0,   rotateY: 0  },
   { x: 110,  y: -90,  z: 20,  rotateZ: 18,  rotateY: -15},
 ];
+
+function getEmbedUrl(url?: string) {
+  if (!url) return "";
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}?controls=0&rel=0&modestbranding=1&playsinline=1` : url;
+}
 
 export default function AnimatedFolder({
   project,
@@ -199,10 +205,11 @@ export default function AnimatedFolder({
                   }}
                   whileHover={isOpen ? { scale: 1.52, zIndex: 40, rotateY: 0, rotateZ: 0 } : {}}
                 >
-                  <img
-                    src={video.thumbnail}
-                    alt=""
-                    className="w-full h-full object-cover"
+                  <iframe
+                    src={getEmbedUrl(video.videoUrl)}
+                    className="w-full h-full object-cover pointer-events-none"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
                   />
                   {/* Play overlay */}
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">

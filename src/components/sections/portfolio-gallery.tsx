@@ -5,14 +5,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import AnimatedFolder, { ProjectData, Video } from "@/components/ui/animated-folder";
 import { X, Play, Pause, ArrowRight } from "lucide-react";
 
+function getEmbedUrl(url?: string) {
+  if (!url) return "";
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}?controls=0&rel=0&modestbranding=1&playsinline=1` : url;
+}
+
 export default function PortfolioGallery() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [openFolderId, setOpenFolderId] = useState<string | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [selectedProjectModal, setSelectedProjectModal] = useState<ProjectData | null>(null);
 
-  const closeModal = () => { setSelectedVideo(null); setIsPlaying(false); setSelectedProjectModal(null); };
+  const closeModal = () => { setSelectedProjectModal(null); };
 
   const filters = ["All", "Video Ads", "Social Media", "Branding", "Corporate Films", "Event"];
 
@@ -34,9 +39,13 @@ export default function PortfolioGallery() {
       description: "A full-funnel video advertising campaign designed to capture attention and convert viewers into loyal customers. We crafted cinematic brand stories that resonated deeply with the target audience.",
       tags: ["Video Production", "Lead Generation"],
       videos: [
-        { thumbnail: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop" }
+        { videoUrl: "https://www.youtube.com/shorts/82pTkaR4ZLc" },
+        { videoUrl: "https://www.youtube.com/shorts/IRCmGaWAubA" },
+        { videoUrl: "https://youtube.com/shorts/Y_kZNqqjuIA" },
+        { videoUrl: "https://youtube.com/shorts/Eu9HCUMzXjE" },
+        { videoUrl: "https://youtube.com/shorts/r0QiOznncJE" },
+        { videoUrl: "https://youtube.com/shorts/SL4vE4k-28E" },
+        { videoUrl: "https://youtube.com/shorts/J_No0k1nK90" },
       ]
     },
     {
@@ -47,9 +56,9 @@ export default function PortfolioGallery() {
       description: "A viral social media strategy combining short-form reels, trending audio, and precision-targeted paid posts that exploded the brand's online presence across Instagram and YouTube.",
       tags: ["Social Media", "SEO"],
       videos: [
-        { thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop" }
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
       ]
     },
     {
@@ -60,9 +69,9 @@ export default function PortfolioGallery() {
       description: "A premium brand identity overhaul featuring bespoke logo design, brand guidelines, packaging, and a high-end launch campaign that positioned the client as a market leader.",
       tags: ["Branding", "Launch"],
       videos: [
-        { thumbnail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&h=600&fit=crop" }
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
       ]
     },
     {
@@ -73,9 +82,9 @@ export default function PortfolioGallery() {
       description: "A crisp, animated explainer film that simplified a complex SaaS product into a compelling narrative. The result: dramatically higher demo bookings and investor interest.",
       tags: ["Animation", "Corporate"],
       videos: [
-        { thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop" }
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
       ]
     },
     {
@@ -86,9 +95,9 @@ export default function PortfolioGallery() {
       description: "A 12-part content series built around fitness transformation stories. Each episode was shot, edited, and distributed across platforms — accumulating millions of organic views.",
       tags: ["Content Series", "Fitness"],
       videos: [
-        { thumbnail: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop" }
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
       ]
     },
     {
@@ -99,9 +108,9 @@ export default function PortfolioGallery() {
       description: "Cinematic drone and walkthrough video production for a luxury real estate developer. Properties sold significantly faster after featuring our immersive visual storytelling.",
       tags: ["Real Estate", "Drone"],
       videos: [
-        { thumbnail: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop" },
-        { thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop" }
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
+        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
       ]
     }
   ];
@@ -223,7 +232,7 @@ export default function PortfolioGallery() {
                       <AnimatedFolder
                         project={project}
                         color={color}
-                        onVideoClick={(video) => setSelectedVideo(video)}
+                        onVideoClick={() => setSelectedProjectModal(project)}
                         isOpen={openFolderId === project.id}
                         onOpen={() => setOpenFolderId(project.id)}
                         onClose={() => setOpenFolderId(null)}
@@ -289,68 +298,6 @@ export default function PortfolioGallery() {
         </AnimatePresence>
       </div>
 
-      {/* Video Modal/Lightbox */}
-      <AnimatePresence>
-        {selectedVideo && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-            onClick={closeModal}
-          >
-            <motion.button
-              className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
-              onClick={closeModal}
-            >
-              <X size={24} />
-            </motion.button>
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={selectedVideo.thumbnail}
-                alt="Video Preview"
-                className={`w-full h-full object-cover transition-opacity duration-500 ${isPlaying ? "opacity-20" : "opacity-50"}`}
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                {/* Playing indicator */}
-                {isPlaying && (
-                  <div className="flex gap-1 mb-6">
-                    {[0, 1, 2, 3].map((i) => (
-                      <motion.div
-                        key={i}
-                        className="w-1 bg-[#ff6b35] rounded-full"
-                        animate={{ height: [8, 28, 8] }}
-                        transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
-                      />
-                    ))}
-                  </div>
-                )}
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-20 h-20 bg-[#ff6b35] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,107,53,0.5)] transition-colors hover:bg-[#ff8555]"
-                  onClick={(e) => { e.stopPropagation(); setIsPlaying((p) => !p); }}
-                >
-                  {isPlaying
-                    ? <Pause size={32} className="text-white" fill="white" />
-                    : <Play size={32} className="text-white ml-1" fill="white" />}
-                </motion.button>
-                <p className="text-white/70 mt-5 text-sm font-medium tracking-wide">
-                  {isPlaying ? "Playing demo…" : "Click to play"}
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Project Videos Modal */}
       <AnimatePresence>
         {selectedProjectModal && (
@@ -389,17 +336,13 @@ export default function PortfolioGallery() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {selectedProjectModal.videos.map((video, idx) => (
-                    <div key={idx} className="group relative aspect-video rounded-xl overflow-hidden bg-black cursor-pointer shadow-md border border-white/5 hover:border-white/20 transition-colors" onClick={() => setSelectedVideo(video)}>
-                      <img
-                        src={video.thumbnail}
-                        alt={`${selectedProjectModal.title} Video ${idx + 1}`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                    <div key={idx} className="group relative aspect-video rounded-xl overflow-hidden bg-black shadow-md border border-white/5 hover:border-white/20 transition-colors">
+                      <iframe
+                        src={getEmbedUrl(video.videoUrl)}
+                        className="w-full h-full object-cover"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
                       />
-                      <div className="absolute inset-0 flex items-center justify-center sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 sm:bg-transparent group-hover:bg-black/40">
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#ff6b35] rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,107,53,0.6)] group-hover:scale-110 transition-transform duration-300">
-                          <Play size={20} className="text-white ml-1 sm:w-6 sm:h-6" fill="white" />
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -408,6 +351,12 @@ export default function PortfolioGallery() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </section>   
   );
 }
+
+
+
+
+
+
