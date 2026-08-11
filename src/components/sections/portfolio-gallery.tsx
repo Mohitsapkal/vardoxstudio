@@ -50,28 +50,32 @@ export default function PortfolioGallery() {
     },
     {
       id: "2",
-      title: "E-Commerce Pro SEO Campaign",
+      title: "Travels & Tourism",
       category: "Social Media",
       result: "500K+ reach",
       description: "A viral social media strategy combining short-form reels, trending audio, and precision-targeted paid posts that exploded the brand's online presence across Instagram and YouTube.",
       tags: ["Social Media", "SEO"],
       videos: [
-        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
-        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
-        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
+        { videoUrl: "https://youtube.com/shorts/Q6SvezpaYR8" },
+        { videoUrl: "https://youtube.com/shorts/L_w98o3f0ts" },
+        { videoUrl: "https://youtube.com/shorts/Zwbljr0rucQ" },
+        { videoUrl: "https://youtube.com/shorts/EH6ug0PWCKM" },
+        { videoUrl: "https://youtube.com/shorts/1hBEZruu1RY" },
       ]
     },
     {
       id: "3",
-      title: "LuxuryLaunch Campaign",
+      title: "Concert & Show",
       category: "Branding",
       result: "20K+ sign-ups",
       description: "A premium brand identity overhaul featuring bespoke logo design, brand guidelines, packaging, and a high-end launch campaign that positioned the client as a market leader.",
       tags: ["Branding", "Launch"],
       videos: [
-        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
-        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" },
-        { videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ" }
+        { videoUrl: "https://youtube.com/shorts/1YzvYXmVu8k" },
+        { videoUrl: "https://youtube.com/shorts/jgeG32pr-3k" },
+        { videoUrl: "https://youtube.com/shorts/juuinm7uAy8" },
+        { videoUrl: "https://youtube.com/shorts/T3ZcP0_6rKw" },
+        { videoUrl: "https://youtube.com/shorts/Hbzp-ZumXF4" }
       ]
     },
     {
